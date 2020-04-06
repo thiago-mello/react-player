@@ -11,6 +11,8 @@ export default function VideoPlayer(props) {
   const [fullscreen, setFullscreen] = useState(false);
   const [muted, setMuted] = useState(mutedProp);
   const [volume, setVolume] = useState(1);
+  const [currentTime, setCurrentTime] = useState(0);
+  let [duration, setDuration] = useState(1);
 
   useEffect(() => {
     const container = document.getElementById('video-container');
@@ -43,12 +45,16 @@ export default function VideoPlayer(props) {
         type={type}
         loop={loop}
         muted={muted}
+        currentTime={setCurrentTime}
+        duration={setDuration}
       />
       <Controls
         playing={[playing, setPlaying]}
         fullscreen={[fullscreen, setFullscreen]}
         muted={[muted, setMuted]}
-        volume={setVolume}
+        volume={[volume, setVolume]}
+        currentTime={[currentTime, setCurrentTime]}
+        duration={duration}
       />
     </Container>
   );

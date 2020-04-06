@@ -1,16 +1,26 @@
 import React from 'react';
+import { ThemeProvider } from 'styled-components';
 
 import VideoPlayer from './Components/VideoPlayer';
+import GlobalStyle from './styles/global';
+
+const theme = {
+  primary: '#3477e3', // '#d92b88',
+};
 
 function App() {
   return (
     <div className="App">
       <h1>
-        <VideoPlayer
-          src="https://www.srviral.com/content/2020/03/92-841.mp4"
-          type="video/mp4"
-          loop
-        />
+        <ThemeProvider theme={theme}>
+          <VideoPlayer
+            src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+            type="video/mp4"
+            loop
+          />
+        </ThemeProvider>
+
+        <GlobalStyle />
       </h1>
     </div>
   );
