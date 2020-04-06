@@ -23,6 +23,7 @@ export default function Controls(props) {
   const [volume, setVolume] = props.volume;
   const { duration } = props;
   const [currentTime, setCurrentTime] = props.currentTime;
+  const setTimeChange = props.timeChange;
 
   function handleFullscreen() {
     setFullscreen(!fullscreen);
@@ -61,6 +62,7 @@ export default function Controls(props) {
       <ProgressBar
         duration={duration}
         currentTime={[currentTime, setCurrentTime]}
+        timeChange={setTimeChange}
       />
       <div id="main">
         <Button className="play-button" onClick={handlePlay}>

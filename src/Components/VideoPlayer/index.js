@@ -12,6 +12,7 @@ export default function VideoPlayer(props) {
   const [muted, setMuted] = useState(mutedProp);
   const [volume, setVolume] = useState(1);
   const [currentTime, setCurrentTime] = useState(0);
+  const [timeChange, setTimeChange] = useState(0);
   let [duration, setDuration] = useState(1);
 
   useEffect(() => {
@@ -46,6 +47,7 @@ export default function VideoPlayer(props) {
         loop={loop}
         muted={muted}
         currentTime={setCurrentTime}
+        timeChange={timeChange}
         duration={setDuration}
       />
       <Controls
@@ -54,6 +56,7 @@ export default function VideoPlayer(props) {
         muted={[muted, setMuted]}
         volume={[volume, setVolume]}
         currentTime={[currentTime, setCurrentTime]}
+        timeChange={setTimeChange}
         duration={duration}
       />
     </Container>
