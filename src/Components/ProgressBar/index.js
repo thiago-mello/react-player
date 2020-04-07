@@ -1,8 +1,9 @@
 import React, { useMemo, useRef } from 'react';
+import PropTypes from 'prop-types';
 
 import { Container, PlayedBar } from './styles';
 
-export default function ProgessBar(props) {
+export default function ProgressBar(props) {
   const [currentTime, setCurrentTime] = props.currentTime;
   const { duration } = props;
   const setTimeChange = props.timeChange;
@@ -67,3 +68,14 @@ export default function ProgessBar(props) {
     </Container>
   );
 }
+
+ProgressBar.propTypes = {
+  currentTime: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.number, PropTypes.func])
+  ).isRequired,
+  duration: PropTypes.number.isRequired,
+  timeChange: PropTypes.func.isRequired,
+  playing: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.bool, PropTypes.func])
+  ).isRequired,
+};

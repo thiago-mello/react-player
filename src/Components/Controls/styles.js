@@ -43,6 +43,16 @@ export const Container = styled.div.attrs({
     color: #fff;
   }
 
+  .right-group {
+    display: flex;
+    .time-string {
+      font-size: 13px;
+      color: #fff;
+      align-self: center;
+      font-weight: normal;
+    }
+  }
+
   .left-group {
     display: flex;
     align-items: center;

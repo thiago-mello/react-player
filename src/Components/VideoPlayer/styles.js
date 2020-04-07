@@ -10,8 +10,8 @@ export const Container = styled.div`
   justify-content: center;
   background: #444;
   width: 100%;
-  max-width: ${(props) => (props.width ? props.width : '853px')};
-  max-height: ${(props) => (props.height ? props.height : '480px')};
+  max-width: ${(props) => props.width};
+  max-height: ${(props) => props.height};
 
   video {
     width: 100%;

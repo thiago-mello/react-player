@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 
 export default function Video(props) {
   const { src, type, loop, muted } = props;
@@ -61,3 +62,20 @@ export default function Video(props) {
     </video>
   );
 }
+
+Video.propTypes = {
+  src: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  loop: PropTypes.bool,
+  muted: PropTypes.bool.isRequired,
+  playing: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.bool, PropTypes.func])
+  ).isRequired,
+  loading: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.bool, PropTypes.func])
+  ).isRequired,
+  volume: PropTypes.number.isRequired,
+  currentTime: PropTypes.func.isRequired,
+  timeChange: PropTypes.number.isRequired,
+  duration: PropTypes.func.isRequired,
+};

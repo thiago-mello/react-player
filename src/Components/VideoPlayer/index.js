@@ -3,9 +3,17 @@ import React, { useState, useEffect } from 'react';
 import Video from '../Video';
 import { Container, LoadingIcon } from './styles';
 import Controls from '../Controls';
+import PropTypes from 'prop-types';
 
 export default function VideoPlayer(props) {
-  const { src, type, loop, muted: mutedProp = false } = props;
+  const {
+    src,
+    type,
+    loop,
+    muted: mutedProp = false,
+    width = '853px',
+    height = 'auto',
+  } = props;
 
   const [playing, setPlaying] = useState(false);
   const [fullscreen, setFullscreen] = useState(false);
@@ -39,7 +47,12 @@ export default function VideoPlayer(props) {
   }, [fullscreen]);
 
   return (
-    <Container id="video-container" fullscreen={fullscreen}>
+    <Container
+      id="video-container"
+      fullscreen={fullscreen}
+      width={width}
+      height={height}
+    >
       {loading ? (
         <LoadingIcon color="#fff" style={{ position: 'absolute' }} />
       ) : null}
@@ -67,3 +80,12 @@ export default function VideoPlayer(props) {
     </Container>
   );
 }
+
+VideoPlayer.propTypes = {
+  src: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  loop: PropTypes.bool,
+  muted: PropTypes.bool,
+  width: PropTypes.string,
+  height: PropTypes.string,
+};

@@ -6,6 +6,8 @@ import GlobalStyle from './styles/global';
 
 const theme = {
   primary: '#3477e3', // '#d92b88',
+  buttons: '#e0e0e0',
+  text: '#fff',
 };
 
 function App() {

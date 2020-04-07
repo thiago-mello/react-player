@@ -1,4 +1,7 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
+import { Button, Zoom, Slider } from '@material-ui/core';
+import moment from 'moment';
+import PropTypes from 'prop-types';
 import {
   MdPlayArrow,
   MdFullscreen,
@@ -9,10 +12,9 @@ import {
   MdPause,
   MdFullscreenExit,
 } from 'react-icons/md';
-import { Button, Zoom, Slider } from '@material-ui/core';
 
 import { Container } from './styles';
-import ProgressBar from '../ProgessBar';
+import ProgressBar from '../ProgressBar';
 
 export default function Controls(props) {
   const [volCollapse, setVolCollapse] = useState(false);
@@ -57,6 +59,15 @@ export default function Controls(props) {
     return <MdVolumeUp size={28} color="#e0e0e0" />;
   }, [volume, muted]);
 
+  const getTimeString = useMemo(() => {
+    const time = moment.utc(currentTime * 1000);
+    const durationTime = moment.utc(duration * 1000).format('m:ss');
+    const durationString =
+      durationTime !== 'Invalid date' ? durationTime : '0:00';
+
+    return `${time.format('m:ss')} / ${durationString}`;
+  }, [currentTime, duration]);
+
   return (
     <Container fullscreen={fullscreen}>
       <ProgressBar
@@ -66,13 +77,16 @@ export default function Controls(props) {
         playing={[playing, setPlaying]}
       />
       <div id="main">
-        <Button className="play-button" onClick={handlePlay}>
-          {playing ? (
-            <MdPause size={28} color="#e0e0e0" />
-          ) : (
-            <MdPlayArrow size={28} color="#e0e0e0" />
-          )}
-        </Button>
+        <div className="right-group">
+          <Button className="play-button" onClick={handlePlay}>
+            {playing ? (
+              <MdPause size={28} color="#e0e0e0" />
+            ) : (
+              <MdPlayArrow size={28} color="#e0e0e0" />
+            )}
+          </Button>
+          <span className="time-string">{getTimeString}</span>
+        </div>
 
         <div className="left-group">
           <div
@@ -108,3 +122,23 @@ export default function Controls(props) {
     </Container>
   );
 }
+
+Controls.propTypes = {
+  playing: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.bool, PropTypes.func])
+  ).isRequired,
+  fullscreen: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.bool, PropTypes.func])
+  ).isRequired,
+  muted: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.bool, PropTypes.func])
+  ).isRequired,
+  volume: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.number, PropTypes.func])
+  ).isRequired,
+  duration: PropTypes.number.isRequired,
+  currentTime: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.number, PropTypes.func])
+  ).isRequired,
+  timeChange: PropTypes.func.isRequired,
+};
