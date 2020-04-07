@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import Video from '../Video';
-import { Container } from './styles';
+import { Container, LoadingIcon } from './styles';
 import Controls from '../Controls';
 
 export default function VideoPlayer(props) {
@@ -13,7 +13,8 @@ export default function VideoPlayer(props) {
   const [volume, setVolume] = useState(1);
   const [currentTime, setCurrentTime] = useState(0);
   const [timeChange, setTimeChange] = useState(0);
-  let [duration, setDuration] = useState(1);
+  const [duration, setDuration] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const container = document.getElementById('video-container');
@@ -39,6 +40,9 @@ export default function VideoPlayer(props) {
 
   return (
     <Container id="video-container" fullscreen={fullscreen}>
+      {loading ? (
+        <LoadingIcon color="#fff" style={{ position: 'absolute' }} />
+      ) : null}
       <Video
         playing={[playing, setPlaying]}
         volume={volume}
@@ -46,6 +50,7 @@ export default function VideoPlayer(props) {
         type={type}
         loop={loop}
         muted={muted}
+        loading={[loading, setLoading]}
         currentTime={setCurrentTime}
         timeChange={timeChange}
         duration={setDuration}

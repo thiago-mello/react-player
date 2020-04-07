@@ -6,6 +6,8 @@ export default function ProgessBar(props) {
   const [currentTime, setCurrentTime] = props.currentTime;
   const { duration } = props;
   const setTimeChange = props.timeChange;
+  const [playing, setPlaying] = props.playing;
+  let playingMemory = useRef(false);
 
   const progressContainer = useRef();
 
@@ -16,6 +18,7 @@ export default function ProgessBar(props) {
   }, [currentTime, duration]);
 
   function handleProgressClick(event) {
+    playingMemory.current = playing;
     const { screenX } = event;
     const progress = progressContainer.current;
     const container = progress.getBoundingClientRect();
@@ -25,8 +28,38 @@ export default function ProgessBar(props) {
     setCurrentTime(durationPercentage * duration);
   }
 
+  function handleDrag(event) {
+    setPlaying(false);
+    const { screenX } = event;
+    const progress = progressContainer.current;
+    const container = progress.getBoundingClientRect();
+    let durationPercentage = (screenX - container['x']) / container['width'];
+
+    if (durationPercentage >= 1) {
+      durationPercentage = 1;
+    }
+    if (durationPercentage !== 0) {
+      setCurrentTime(durationPercentage * duration);
+    }
+  }
+
+  function handleMouseUp(event) {
+    const { screenX } = event;
+    const progress = progressContainer.current;
+    const container = progress.getBoundingClientRect();
+    const durationPercentage = (screenX - container['x']) / container['width'];
+
+    setTimeChange(durationPercentage * duration);
+    setPlaying(playingMemory.current);
+  }
+
   return (
-    <Container ref={progressContainer} onClick={handleProgressClick}>
+    <Container
+      ref={progressContainer}
+      onMouseDown={handleProgressClick}
+      onDrag={handleDrag}
+      onDragEnd={handleMouseUp}
+    >
       <PlayedBar progress={progressWidth}>
         <div className="current-time" />
       </PlayedBar>

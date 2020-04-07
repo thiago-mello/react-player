@@ -63,6 +63,7 @@ export default function Controls(props) {
         duration={duration}
         currentTime={[currentTime, setCurrentTime]}
         timeChange={setTimeChange}
+        playing={[playing, setPlaying]}
       />
       <div id="main">
         <Button className="play-button" onClick={handlePlay}>
