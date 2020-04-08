@@ -9,6 +9,7 @@ export default function Video(props) {
   const setCurrentTime = props.currentTime;
   const { timeChange } = props;
   const setDuration = props.duration;
+  const setBufferedTime = props.bufferedTime;
 
   const [canPlay, setCanPlay] = useState(false);
 
@@ -46,6 +47,20 @@ export default function Video(props) {
     setCurrentTime(currentTime);
   }
 
+  function handleBuffer() {
+    const video = player.current;
+    const { buffered } = video;
+
+    for (let i = 0; i < buffered.length; i++) {
+      if (buffered.start(buffered.length - i - 1) < video.currentTime) {
+        setBufferedTime(
+          buffered.end(buffered.length - i - 1) - video.currentTime
+        );
+        break;
+      }
+    }
+  }
+
   return (
     <video
       id="video-player"
@@ -54,9 +69,10 @@ export default function Video(props) {
       onCanPlay={handleCanPlay}
       loop={loop}
       muted={muted}
-      preload="auto"
       onTimeUpdate={handleTimeUpdate}
       onWaitingCapture={() => setLoading(true)}
+      onProgress={handleBuffer}
+      preload="auto"
     >
       <source src={src} type={type} />
     </video>
@@ -78,4 +94,5 @@ Video.propTypes = {
   currentTime: PropTypes.func.isRequired,
   timeChange: PropTypes.number.isRequired,
   duration: PropTypes.func.isRequired,
+  bufferedTime: PropTypes.func.isRequired,
 };

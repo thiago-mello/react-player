@@ -24,6 +24,7 @@ export default function Controls(props) {
   const [muted, setMuted] = props.muted;
   const [volume, setVolume] = props.volume;
   const { duration } = props;
+  const [bufferedTime, setBufferedTime] = props.bufferedTime;
   const [currentTime, setCurrentTime] = props.currentTime;
   const setTimeChange = props.timeChange;
 
@@ -75,6 +76,7 @@ export default function Controls(props) {
         currentTime={[currentTime, setCurrentTime]}
         timeChange={setTimeChange}
         playing={[playing, setPlaying]}
+        bufferedTime={[bufferedTime, setBufferedTime]}
       />
       <div id="main">
         <div className="right-group">
@@ -137,6 +139,9 @@ Controls.propTypes = {
     PropTypes.oneOfType([PropTypes.number, PropTypes.func])
   ).isRequired,
   duration: PropTypes.number.isRequired,
+  bufferedTime: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.number, PropTypes.func])
+  ).isRequired,
   currentTime: PropTypes.arrayOf(
     PropTypes.oneOfType([PropTypes.number, PropTypes.func])
   ).isRequired,

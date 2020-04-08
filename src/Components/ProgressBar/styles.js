@@ -5,7 +5,7 @@ export const Container = styled.div`
   display: flex;
   position: relative;
   margin: 0 8px;
-  background: rgba(191, 191, 191, 0.7);
+  background: rgba(170, 170, 170, 0.7);
   height: 3px;
   border-radius: 8px;
   transition: 0.3s;
@@ -40,4 +40,13 @@ export const PlayedBar = styled.div.attrs((props) => ({
     transform: scale(0, 0);
     transition: 0.3s;
   }
+`;
+
+export const BufferedBar = styled.div.attrs((props) => ({
+  style: {
+    width: `${props.buffered}%` || 0,
+  },
+}))`
+  background: rgba(210, 210, 210, 0.7);
+  height: 100%;
 `;

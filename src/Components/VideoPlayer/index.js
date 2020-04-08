@@ -23,6 +23,7 @@ export default function VideoPlayer(props) {
   const [timeChange, setTimeChange] = useState(0);
   const [duration, setDuration] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [bufferedTime, setBufferedTime] = useState(0);
 
   useEffect(() => {
     const container = document.getElementById('video-container');
@@ -67,6 +68,7 @@ export default function VideoPlayer(props) {
         currentTime={setCurrentTime}
         timeChange={timeChange}
         duration={setDuration}
+        bufferedTime={setBufferedTime}
       />
       <Controls
         playing={[playing, setPlaying]}
@@ -76,6 +78,7 @@ export default function VideoPlayer(props) {
         currentTime={[currentTime, setCurrentTime]}
         timeChange={setTimeChange}
         duration={duration}
+        bufferedTime={[bufferedTime, setBufferedTime]}
       />
     </Container>
   );
