@@ -46,3 +46,34 @@ export const LoadingIcon = styled(AiOutlineLoading3Quarters).attrs({
     }
   }
 `;
+
+export const BigIconContainer = styled.div`
+  align-self: center;
+  position: absolute;
+
+  svg {
+    animation: fade 0.4s;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @keyframes fade {
+      from {
+        transform: scale(50%);
+        padding: 24px;
+        opacity: 0;
+      }
+
+      60% {
+        transform: scale(100%);
+        padding: 12px;
+        opacity: 0.7;
+      }
+
+      to {
+        opacity: 0;
+      }
+    }
+  }
+`;

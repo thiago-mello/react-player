@@ -32,14 +32,6 @@ export default function Controls(props) {
     setFullscreen(!fullscreen);
   }
 
-  function handlePlay() {
-    if (playing) {
-      setPlaying(false);
-    } else {
-      setPlaying(true);
-    }
-  }
-
   function handleVolumeChange(_, value) {
     setVolume(value);
 
@@ -80,7 +72,7 @@ export default function Controls(props) {
       />
       <div id="main">
         <div className="right-group">
-          <Button className="play-button" onClick={handlePlay}>
+          <Button className="play-button" onClick={() => setPlaying(!playing)}>
             {playing ? (
               <MdPause size={28} color="#e0e0e0" />
             ) : (

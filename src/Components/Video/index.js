@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 export default function Video(props) {
-  const { src, type, loop, muted } = props;
+  const { src, type, loop, muted, onClick } = props;
   const [playing, setPlaying] = props.playing;
   const [, setLoading] = props.loading;
   const volume = props.volume;
@@ -73,6 +73,7 @@ export default function Video(props) {
       onWaitingCapture={() => setLoading(true)}
       onProgress={handleBuffer}
       preload="auto"
+      onClick={onClick}
     >
       <source src={src} type={type} />
     </video>
