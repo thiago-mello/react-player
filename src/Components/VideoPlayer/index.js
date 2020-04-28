@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 import Video from '../Video';
 import { MdPlayArrow, MdPause } from 'react-icons/md';
@@ -26,6 +26,8 @@ export default function VideoPlayer(props) {
   const [loading, setLoading] = useState(false);
   const [bufferedTime, setBufferedTime] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [videoCursor, setVideoCursor] = useState('default');
+  const [timeOutId, setTimeoutId] = useState();
 
   useEffect(() => {
     const container = document.getElementById('video-container');
@@ -54,6 +56,18 @@ export default function VideoPlayer(props) {
     setIsAnimating(true);
   }
 
+  const handleMouseMove = useCallback(() => {
+    setVideoCursor('default');
+    clearTimeout(timeOutId);
+    if (fullscreen) {
+      setTimeoutId(
+        setTimeout(() => {
+          setVideoCursor('none');
+        }, 2000)
+      );
+    }
+  }, [fullscreen, timeOutId]);
+
   function getBigIcon() {
     return playing ? (
       <MdPlayArrow
@@ -76,6 +90,7 @@ export default function VideoPlayer(props) {
       fullscreen={fullscreen}
       width={width}
       height={height}
+      cursor={videoCursor}
     >
       {loading ? (
         <LoadingIcon color="#fff" style={{ position: 'absolute' }} />
@@ -93,6 +108,7 @@ export default function VideoPlayer(props) {
         duration={setDuration}
         bufferedTime={setBufferedTime}
         onClick={handlePauseClick}
+        onMouseMove={handleMouseMove}
       />
       <BigIconContainer>{isAnimating ? getBigIcon() : null}</BigIconContainer>
 

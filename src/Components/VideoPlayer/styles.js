@@ -14,6 +14,7 @@ export const Container = styled.div`
   max-height: ${(props) => props.height};
 
   video {
+    cursor: ${(props) => props.cursor};
     width: 100%;
     height: 100%;
   }

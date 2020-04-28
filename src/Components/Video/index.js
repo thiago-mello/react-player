@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 export default function Video(props) {
-  const { src, type, loop, muted, onClick } = props;
+  const { src, type, loop, muted, onClick, onMouseMove } = props;
   const [playing, setPlaying] = props.playing;
   const [, setLoading] = props.loading;
   const volume = props.volume;
@@ -74,6 +74,7 @@ export default function Video(props) {
       onProgress={handleBuffer}
       preload="auto"
       onClick={onClick}
+      onMouseMove={onMouseMove}
     >
       <source src={src} type={type} />
     </video>
@@ -96,4 +97,6 @@ Video.propTypes = {
   timeChange: PropTypes.number.isRequired,
   duration: PropTypes.func.isRequired,
   bufferedTime: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
+  onMouseMove: PropTypes.func.isRequired,
 };
